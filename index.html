@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutomateAI - AI Automation Agency</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,Arial,sans-serif}
+body{background:#0a0a0f;color:#fff;line-height:1.6}
+nav{display:flex;justify-content:space-between;align-items:center;padding:20px 8%;position:sticky;top:0;background:rgba(10,10,15,0.9);backdrop-filter:blur(10px);z-index:10}
+.logo{font-weight:800;font-size:22px} .logo span{color:#7c5cff}
+.btn{padding:12px 22px;background:#7c5cff;color:#fff;border:none;border-radius:30px;cursor:pointer;font-weight:600}
+.hero{padding:80px 8%;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.hero h1{font-size:52px;line-height:1.1;margin-bottom:20px} .hero h1 span{color:#7c5cff}
+.hero p{color:#aaa;margin-bottom:25px;font-size:18px}
+.card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding:40px 8%}
+.card{background:#15151d;border:1px solid #222;padding:25px;border-radius:16px;transition:0.3s}
+.card:hover{border-color:#7c5cff;transform:translateY(-5px)}
+.card h3{margin:12px 0 8px}
+.card p{color:#aaa;font-size:14px}
+.section{padding:60px 8%} .section h2{font-size:36px;text-align:center;margin-bottom:40px}
+.demo-box{background:#15151d;border-radius:16px;padding:20px;max-width:600px;margin:0 auto}
+#chat{height:250px;overflow-y:auto;margin-bottom:15px;display:flex;flex-direction:column;gap:10px}
+.msg{padding:10px 14px;border-radius:12px;max-width:80%}
+.user{align-self:flex-end;background:#7c5cff} .bot{align-self:flex-start;background:#222}
+.input-row{display:flex;gap:10px} .input-row input{flex:1;padding:12px;border-radius:30px;border:1px solid #333;background:#0a0a0f;color:#fff}
+@media(max-width:800px){.hero,.card-grid{grid-template-columns:1fr}.hero h1{font-size:38px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Automate<span>AI</span></div>
+  <button class="btn" onclick="scrollToContact()">Get Demo</button>
+</nav>
+
+<section class="hero">
+  <div>
+    <h1>Automate Your Business With <span>AI Agents</span></h1>
+    <p>We build AI workflows that handle customer support, lead generation, data entry and sales - 24/7, no code needed.</p>
+    <button class="btn" onclick="scrollToContact()">Start Automating →</button>
+    <p style="margin-top:15px;font-size:13px;color:#666">✓ Trusted by 500+ businesses ✓ No monthly fees to start</p>
+  </div>
+  <div class="demo-box">
+    <h3 style="margin-bottom:10px">Try Our AI Agent</h3>
+    <div id="chat">
+      <div class="msg bot">Hi! I'm your AI assistant. Ask me what I can automate for you.</div>
+    </div>
+    <div class="input-row">
+      <input id="userInput" placeholder="e.g. Can you handle my WhatsApp orders?" onkeypress="if(event.key==='Enter')sendMsg()">
+      <button class="btn" onclick="sendMsg()">Send</button>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:#0f0f16">
+  <h2>What We Automate</h2>
+  <div class="card-grid">
+    <div class="card"><h3>🤖 Customer Support</h3><p>AI chatbot for WhatsApp, Instagram, Website that answers 80% of questions instantly.</p></div>
+    <div class="card"><h3>📈 Lead Generation</h3><p>AI that scrapes, qualifies and emails leads while you sleep.</p></div>
+    <div class="card"><h3>⚡ Workflow Automation</h3><p>Connect Gmail, Sheets, Shopify, CRM. No more copy-paste work.</p></div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <h2>Get Your Free Automation Audit</h2>
+  <div class="demo-box" style="text-align:center">
+    <input id="email" placeholder="Enter your business email" style="width:100%;padding:12px;border-radius:30px;border:1px solid #333;background:#0a0a0f;color:#fff;margin-bottom:15px">
+    <button class="btn" style="width:100%" onclick="submitForm()">Get Free Plan</button>
+    <p id="status" style="margin-top:10px;color:#7c5cff"></p>
+  </div>
+</section>
+
+<script>
+// Simple AI demo logic
+function sendMsg(){
+  const input = document.getElementById('userInput');
+  const chat = document.getElementById('chat');
+  if(!input.value.trim()) return;
+  chat.innerHTML += `<div class="msg user">${input.value}</div>`;
+  const text = input.value.toLowerCase();
+  input.value = '';
+
+  setTimeout(()=>{
+    let reply = "I can automate that! We build custom AI agents for WhatsApp, emails, and CRMs. Want a free audit?";
+    if(text.includes('price') || text.includes('cost')) reply = "Our plans start from $99/month. But we build a free demo first. Drop your email below.";
+    if(text.includes('whatsapp')) reply = "Yes! We can automate your entire WhatsApp orders, replies and follow-ups with AI. Works 24/7.";
+    if(text.includes('support')) reply = "Our support bot reduces support tickets by 70% and replies in <2 seconds.";
+    chat.innerHTML += `<div class="msg bot">${reply}</div>`;
+    chat.scrollTop = chat.scrollHeight;
+  }, 600);
+}
+
+function scrollToContact(){
+  document.getElementById('contact').scrollIntoView({behavior:'smooth'});
+}
+
+function submitForm(){
+  const email = document.getElementById('email').value;
+  const status = document.getElementById('status');
+  if(!email.includes('@')){ status.textContent = "Please enter a valid email"; return; }
+  status.textContent = "Thanks! Check your email - we sent your automation plan. 🚀";
+}
+</script>
+
+</body>
+</html>
